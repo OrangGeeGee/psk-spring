@@ -1,6 +1,8 @@
 package lt.asinica.psk.spring.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +13,9 @@ public class Book {
     @GeneratedValue
     private Long id;
     private String title;
+
+    @Version
+    private Long version;
 
     @ManyToMany
     @JoinTable(name = "book_store",
@@ -60,5 +65,13 @@ public class Book {
 
     public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
